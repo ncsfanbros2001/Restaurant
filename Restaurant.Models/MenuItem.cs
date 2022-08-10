@@ -18,11 +18,11 @@ namespace Restaurant.Models
         public string Image { get; set; }
         [Range(1, 1000, ErrorMessage = "Invalid Price")]
         public double Price { get; set; }
-
+        [Display(Name = "Food Type")]
         public int FoodTypeID { get; set; }
         [ForeignKey("FoodTypeID")]
         public FoodType FoodType { get; set; }
-
+        [Display(Name = "Category")]
         public int CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public Category Category { get; set; }

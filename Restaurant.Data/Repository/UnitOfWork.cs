@@ -1,5 +1,6 @@
 ﻿using Restaurant.Data.CategoryRepo;
 using Restaurant.Data.FoodTypeRepo;
+using Restaurant.Data.MenuItemRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,9 +16,12 @@ namespace Restaurant.Data.Repository
         public UnitOfWork(DatabaseContext db)
         {
             _db = db;
+            MenuItemRepository = new MenuItemRepository(db);
             FoodTypeRepository = new FoodTypeRepository(db);
             CategoryRepository = new CategoryRepository(db);
         }
+
+        public IMenuItemRepository MenuItemRepository { get; private set; }
 
         public IFoodTypeRepository FoodTypeRepository { get; private set; }
 

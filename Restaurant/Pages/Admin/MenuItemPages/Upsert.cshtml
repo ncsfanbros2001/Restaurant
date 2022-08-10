@@ -1,0 +1,47 @@
+﻿@page
+@model Restaurant.Pages.Admin.MenuItemPages.UpsertModel
+
+<form method="post" enctype="multipart/form-data">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2 class="pl-3"> @(Model.MenuItem.Id != 0 ? "Update" : "Create") Menu Item</h2>
+            <hr />
+        </div>
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="@Model.MenuItem.Name"></label>
+            <input asp-for="@Model.MenuItem.Name" class="form-control" />
+            <span asp-validation-for="@Model.MenuItem.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.MenuItem.Description"></label>
+            <input asp-for="@Model.MenuItem.Description" class="form-control" />
+            <span asp-validation-for="@Model.MenuItem.Description" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.MenuItem.Price"></label>
+            <input asp-for="@Model.MenuItem.Price" class="form-control" />
+            <span asp-validation-for="@Model.MenuItem.Price" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.MenuItem.Image"></label>
+            <input type="file" name="files" id="uploadBox" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.MenuItem.CategoryID"></label>
+            <select asp-for="@Model.MenuItem.CategoryID" asp-items="@Model.CategoryList" class="form-select">
+                <option disabled selected>-Select Category-</option>
+            </select>
+            <span asp-validation-for="@Model.MenuItem.CategoryID" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="@Model.MenuItem.FoodTypeID"></label>
+            <select asp-for="@Model.MenuItem.FoodTypeID" asp-items="@Model.FoodTypeList" class="form-select">
+                <option disabled selected>-Select Food Type-</option>
+            </select>
+            <span asp-validation-for="@Model.MenuItem.FoodTypeID" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 150px">Create</button>
+        <a asp-page="FoodTypeIndex" class="btn btn-secondary" style="width: 150px">Go Back</a>
+    </div>
+</form>
