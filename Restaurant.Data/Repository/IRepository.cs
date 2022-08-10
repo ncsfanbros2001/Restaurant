@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restaurant.Data.CategoryRepo
+namespace Restaurant.Data.Repository
 {
     public interface IRepository<T> where T : class
     {

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Restaurant.Data.CategoryRepo;
+using Restaurant.Data.Repository;
 using Restaurant.Models;
 
 namespace Restaurant.Pages.Admin.CategoryPages
@@ -8,11 +9,11 @@ namespace Restaurant.Pages.Admin.CategoryPages
     [BindProperties]
     public class DeleteCategoryModel : PageModel
     {
-        private readonly ICategoryUnitOfWork _uow;
+        private readonly IUnitOfWork _uow;
 
         public Category Category { get; set; }
 
-        public DeleteCategoryModel(ICategoryUnitOfWork uow)
+        public DeleteCategoryModel(IUnitOfWork uow)
         {
             _uow = uow;
         }

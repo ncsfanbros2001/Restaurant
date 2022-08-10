@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Restaurant.Data.FoodTypeRepo;
+using Restaurant.Data.Repository;
 using Restaurant.Models;
 
 namespace Restaurant.Pages.Admin.FoodPages
@@ -8,11 +9,11 @@ namespace Restaurant.Pages.Admin.FoodPages
     [BindProperties]
     public class DeleteFoodTypeModel : PageModel
     {
-        private readonly IFoodTypeUnitOfWork _uow;
+        private readonly IUnitOfWork _uow;
 
         public FoodType FoodType { get; set; }
 
-        public DeleteFoodTypeModel(IFoodTypeUnitOfWork uow)
+        public DeleteFoodTypeModel(IUnitOfWork uow)
         {
             _uow = uow;
         }

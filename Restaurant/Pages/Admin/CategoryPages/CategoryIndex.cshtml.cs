@@ -1,17 +1,17 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Restaurant.Data.CategoryRepo;
+using Restaurant.Data.Repository;
 using Restaurant.Models;
 
 namespace Restaurant.Pages.Admin.CategoryPages
 {
     public class CategoryIndexModel : PageModel
     {
-        private readonly ICategoryUnitOfWork _uow;
+        private readonly IUnitOfWork _uow;
 
         public IEnumerable<Category> Category { get; set; }
 
-        public CategoryIndexModel(ICategoryUnitOfWork uow)
+        public CategoryIndexModel(IUnitOfWork uow)
         {
             _uow = uow;
         }

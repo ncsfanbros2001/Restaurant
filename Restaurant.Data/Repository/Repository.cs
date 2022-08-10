@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Restaurant.Data.FoodTypeRepo
+namespace Restaurant.Data.Repository
 {
     public class Repository<T> : IRepository<T> where T : class
     {
@@ -16,8 +16,9 @@ namespace Restaurant.Data.FoodTypeRepo
         public Repository(DatabaseContext db)
         {
             _db = db;
-            this.dbSet = db.Set<T>();
+            dbSet = db.Set<T>();
         }
+
         public void Add(T entity)
         {
             dbSet.Add(entity);
