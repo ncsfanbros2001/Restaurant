@@ -26,8 +26,12 @@ namespace Restaurant.Pages.Admin.MenuItemPages
             _hostEnviroment = hostEnviroment;
         }
 
-        public void OnGet()
+        public void OnGet(int? id)
         {
+            if(id != null) // Edit request
+            {
+                MenuItem = _uow.MenuItemRepository.GetFirstOrDefault(u => u.Id == id);
+            }
             CategoryList = _uow.CategoryRepository.GetAll().Select(i => new SelectListItem()
             {
                 Text = i.Name,
@@ -49,17 +53,14 @@ namespace Restaurant.Pages.Admin.MenuItemPages
                 var uploads = Path.Combine(webRootPath, @"images\menuItem");
                 var extension = Path.GetExtension(files[0].FileName);
 
-                using (var fileStream = new FileStream(Path.Combine(uploads, newFileName + extension), FileMode.Create))
+                using (var fileStream = new FileStream(Path.Combine(uploads, newFileName + extension),
+                    FileMode.Create))
                 {
                     files[0].CopyTo(fileStream);
                 }
                 MenuItem.Image = @"images\menuItem\" + newFileName + extension;
                 _uow.MenuItemRepository.Add(MenuItem);
                 _uow.Save();
-            }
-            else
-            {
-
             }
             return RedirectToPage("MenuItemIndex");
         }

@@ -40,8 +40,8 @@
             </select>
             <span asp-validation-for="@Model.MenuItem.FoodTypeID" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn btn-primary" style="width: 150px">Create</button>
-        <a asp-page="FoodTypeIndex" class="btn btn-secondary" style="width: 150px">Go Back</a>
+        <button type="submit" class="btn btn-primary" style="width: 150px">@(Model.MenuItem.Id != 0 ? "Update" : "Create")</button>
+        <a asp-page="MenuItemIndex" class="btn btn-secondary" style="width: 150px">Go Back</a>
     </div>
 </form>
 
