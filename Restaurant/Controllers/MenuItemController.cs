@@ -17,7 +17,7 @@ namespace Restaurant.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var menuItemList = _uow.MenuItemRepository.GetAll();
+            var menuItemList = _uow.MenuItemRepository.GetAll(includeProperties: "Category,FoodType");
             return Json(new {data = menuItemList});
         }
     }
