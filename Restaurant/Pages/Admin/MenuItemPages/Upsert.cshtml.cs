@@ -47,7 +47,7 @@ namespace Restaurant.Pages.Admin.MenuItemPages
         public IActionResult OnPost() {
             string webRootPath = _hostEnviroment.WebRootPath;
             var files = HttpContext.Request.Form.Files;
-            if (MenuItem.Id == 0)
+            if (MenuItem.Id == 0) // Create
             {
                 string newFileName = Guid.NewGuid().ToString();
                 var uploads = Path.Combine(webRootPath, @"images\menuItem");
@@ -60,6 +60,36 @@ namespace Restaurant.Pages.Admin.MenuItemPages
                 }
                 MenuItem.Image = @"images\menuItem\" + newFileName + extension;
                 _uow.MenuItemRepository.Add(MenuItem);
+                _uow.Save();
+            }
+            else // Update
+            {
+                var objFromDB = _uow.MenuItemRepository.GetFirstOrDefault(u => u.Id == MenuItem.Id);
+                if (files.Count > 0)
+                {
+                    string newFileName = Guid.NewGuid().ToString();
+                    var uploads = Path.Combine(webRootPath, @"images\menuItem");
+                    var extension = Path.GetExtension(files[0].FileName);
+
+                    var oldImagePath = Path.Combine(webRootPath, objFromDB.Image.TrimStart('\\'));
+
+                    if (System.IO.File.Exists(oldImagePath))
+                    {
+                        System.IO.File.Delete(oldImagePath);
+                    }
+
+                    using (var fileStream = new FileStream(Path.Combine(uploads, newFileName + extension),
+                        FileMode.Create))
+                    {
+                        files[0].CopyTo(fileStream);
+                    }
+                    MenuItem.Image = @"images\menuItem\" + newFileName + extension;
+                }
+                else
+                {
+                    MenuItem.Image = objFromDB.Image;
+                }
+                _uow.MenuItemRepository.Update(MenuItem);
                 _uow.Save();
             }
             return RedirectToPage("MenuItemIndex");
