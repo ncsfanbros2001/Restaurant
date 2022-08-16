@@ -15,7 +15,7 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(
     ));
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddEntityFrameworkStores<DatabaseContext2>();
+    .AddEntityFrameworkStores<DatabaseContext>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
