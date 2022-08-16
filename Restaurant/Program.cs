@@ -4,6 +4,7 @@ using Restaurant.Data.CategoryRepo;
 using Restaurant.Data.FoodTypeRepo;
 using Restaurant.Data.Repository;
 using Microsoft.AspNetCore.Identity;
+using Restaurant.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +15,7 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(
     ));
 
 builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddEntityFrameworkStores<DatabaseContext>();
+    .AddEntityFrameworkStores<DatabaseContext2>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();

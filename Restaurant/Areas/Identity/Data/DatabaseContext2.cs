@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Restaurant.Data;
+namespace Restaurant.Areas.Identity.Data;
 
-public class DatabaseContext : IdentityDbContext<IdentityUser>
+public class DatabaseContext2 : IdentityDbContext<IdentityUser>
 {
-    public DatabaseContext(DbContextOptions<DatabaseContext> options)
+    public DatabaseContext2(DbContextOptions<DatabaseContext2> options)
         : base(options)
     {
+
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
