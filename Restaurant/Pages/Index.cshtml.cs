@@ -12,9 +12,9 @@ namespace Restaurant.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
-
+            return RedirectToPage("Customers/HomePage/HomeIndex");
         }
     }
 }
