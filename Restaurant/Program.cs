@@ -18,8 +18,18 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
+
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Identity/Account/Login";
+    options.LogoutPath = "/Identity/Account/Logout";
+    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

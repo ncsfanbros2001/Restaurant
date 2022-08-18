@@ -50,7 +50,7 @@ namespace Restaurant.Pages.Admin.MenuItemPages
             if (MenuItem.Id == 0) // Create
             {
                 string newFileName = Guid.NewGuid().ToString();
-                var uploads = Path.Combine(webRootPath, @"images\menuItem");
+                var uploads = Path.Combine(webRootPath, @"images/menuItem");
                 var extension = Path.GetExtension(files[0].FileName);
 
                 using (var fileStream = new FileStream(Path.Combine(uploads, newFileName + extension),
@@ -58,7 +58,7 @@ namespace Restaurant.Pages.Admin.MenuItemPages
                 {
                     files[0].CopyTo(fileStream);
                 }
-                MenuItem.Image = @"images\menuItem\" + newFileName + extension;
+                MenuItem.Image = @"/images/menuItem/" + newFileName + extension;
                 _uow.MenuItemRepository.Add(MenuItem);
                 _uow.Save();
             }
@@ -68,10 +68,10 @@ namespace Restaurant.Pages.Admin.MenuItemPages
                 if (files.Count > 0)
                 {
                     string newFileName = Guid.NewGuid().ToString();
-                    var uploads = Path.Combine(webRootPath, @"images\menuItem");
+                    var uploads = Path.Combine(webRootPath, @"images/menuItem");
                     var extension = Path.GetExtension(files[0].FileName);
 
-                    var oldImagePath = Path.Combine(webRootPath, objFromDB.Image.TrimStart('\\'));
+                    var oldImagePath = Path.Combine(webRootPath, objFromDB.Image.TrimStart('/'));
 
                     if (System.IO.File.Exists(oldImagePath))
                     {
@@ -83,7 +83,7 @@ namespace Restaurant.Pages.Admin.MenuItemPages
                     {
                         files[0].CopyTo(fileStream);
                     }
-                    MenuItem.Image = @"images\menuItem\" + newFileName + extension;
+                    MenuItem.Image = @"/images/menuItem/" + newFileName + extension;
                 }
                 else
                 {
