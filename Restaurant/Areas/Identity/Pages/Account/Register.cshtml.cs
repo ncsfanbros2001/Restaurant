@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Restaurant.Models;
+using Restaurant.Utility;
 
 namespace Restaurant.Areas.Identity.Pages.Account
 {
@@ -30,13 +31,15 @@ namespace Restaurant.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             IUserStore<IdentityUser> userStore,
             SignInManager<IdentityUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _userStore = userStore;
@@ -44,6 +47,7 @@ namespace Restaurant.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         /// <summary>
@@ -128,9 +132,38 @@ namespace Restaurant.Areas.Identity.Pages.Account
                 user.PhoneNumber = Input.PhoneNumber;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
-
+                if (!await _roleManager.RoleExistsAsync(StaticDetail.KitchenRole))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(StaticDetail.KitchenRole));
+                    await _roleManager.CreateAsync(new IdentityRole(StaticDetail.ManagerRole));
+                    await _roleManager.CreateAsync(new IdentityRole(StaticDetail.FrontDeskRole));
+                    await _roleManager.CreateAsync(new IdentityRole(StaticDetail.CustomerRole));
+                }
                 if (result.Succeeded)
                 {
+                    string role = Request.Form["rdUserRole"].ToString();
+                    if (role == StaticDetail.KitchenRole)
+                    {
+                        await _userManager.AddToRoleAsync(user, StaticDetail.KitchenRole);
+                    }
+                    else
+                    {
+                        if (role == StaticDetail.ManagerRole)
+                        {
+                            await _userManager.AddToRoleAsync(user, StaticDetail.ManagerRole);
+                        }
+                        else
+                        {
+                            if (role == StaticDetail.FrontDeskRole)
+                            {
+                                await _userManager.AddToRoleAsync(user, StaticDetail.FrontDeskRole);
+                            }
+                            else
+                            {
+                                await _userManager.AddToRoleAsync(user, StaticDetail.CustomerRole);
+                            }
+                        }
+                    }
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

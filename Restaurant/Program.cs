@@ -5,6 +5,8 @@ using Restaurant.Data.FoodTypeRepo;
 using Restaurant.Data.Repository;
 using Microsoft.AspNetCore.Identity;
 using Restaurant.Areas.Identity.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Restaurant.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +16,9 @@ builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
-builder.Services.AddDefaultIdentity<IdentityUser>()
-    .AddEntityFrameworkStores<DatabaseContext>();
-
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<DatabaseContext>().AddDefaultTokenProviders();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 var app = builder.Build();
 
