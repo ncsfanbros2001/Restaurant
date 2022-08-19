@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Customers\ShoppingCart\**" />
+    <Content Remove="Pages\Customers\ShoppingCart\**" />
+    <EmbeddedResource Remove="Pages\Customers\ShoppingCart\**" />
+    <None Remove="Pages\Customers\ShoppingCart\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="wwwroot\js\menuItem.js" />
   </ItemGroup>
 
@@ -32,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Customers\ShoppingCart\" />
     <Folder Include="wwwroot\images\menuItem\" />
   </ItemGroup>
 
