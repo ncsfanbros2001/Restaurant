@@ -34,11 +34,34 @@ namespace Restaurant.Pages.Customers.Cart
                 }
             }
         }
-
         public IActionResult OnPostPlus(int cartId)
         {
             var cart = _uow.ShoppingCartRepository.GetFirstOrDefault(u => u.Id == cartId);
-            _uow.ShoppingCartRepository.Incre
+            _uow.ShoppingCartRepository.IncrementCount(cart, 1);
+            return RedirectToPage("/Customers/Cart/ShoppingCartIndex");
+        }
+
+        public IActionResult OnPostMinus(int cartId)
+        {
+            var cart = _uow.ShoppingCartRepository.GetFirstOrDefault(u => u.Id == cartId);
+            if (cart.Count == 1)
+            {
+                _uow.ShoppingCartRepository.Remove(cart);
+                _uow.Save();
+            }
+            else
+            {
+                _uow.ShoppingCartRepository.DecrementCount(cart, 1);
+            }
+            return RedirectToPage("/Customers/Cart/ShoppingCartIndex");
+        }
+
+        public IActionResult OnPostRemove(int cartId)
+        {
+            var cart = _uow.ShoppingCartRepository.GetFirstOrDefault(u => u.Id == cartId);
+            _uow.ShoppingCartRepository.Remove(cart);
+            _uow.Save();
+            return RedirectToPage("/Customers/Cart/ShoppingCartIndex");
         }
     }
 }
