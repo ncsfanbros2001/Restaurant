@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Restaurant.Data.Repository;
 using Restaurant.Models;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 namespace Restaurant.Pages.Customers.HomePage
 {
@@ -22,10 +23,31 @@ namespace Restaurant.Pages.Customers.HomePage
 
         public void OnGet(int id)
         {
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claim = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier);
+
             ShoppingCart = new()
             {
-                MenuItem = _uow.MenuItemRepository.GetFirstOrDefault(u => u.Id == id, includeProperties: "Category,FoodType")
+                UserInfoId = claim.Value,
+                MenuItem = _uow.MenuItemRepository.GetFirstOrDefault(u => u.Id == id,
+                includeProperties: "Category,FoodType"),
+                MenuItemId = id
             };
+        }
+
+        public IActionResult OnPost()
+        {
+            if(ModelState.IsValid)
+            {
+
+                _uow.ShoppingCartRepository.Add(ShoppingCart);
+                _uow.Save();
+                return RedirectToPage("HomeIndex");
+            }
+            else
+            {
+                return Page();
+            }
         }
     }
 }
