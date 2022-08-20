@@ -39,9 +39,18 @@ namespace Restaurant.Pages.Customers.HomePage
         {
             if(ModelState.IsValid)
             {
+                ShoppingCart shoppingCartFromDB = _uow.ShoppingCartRepository.GetFirstOrDefault(
+                    u => u.UserInfoId == ShoppingCart.UserInfoId && u.MenuItemId == ShoppingCart.MenuItemId);
 
-                _uow.ShoppingCartRepository.Add(ShoppingCart);
-                _uow.Save();
+                if (shoppingCartFromDB == null)
+                {
+                    _uow.ShoppingCartRepository.Add(ShoppingCart);
+                    _uow.Save();
+                }
+                else
+                {
+                    _uow.ShoppingCartRepository.IncrementCount(shoppingCartFromDB, ShoppingCart.Count);
+                }
                 return RedirectToPage("HomeIndex");
             }
             else

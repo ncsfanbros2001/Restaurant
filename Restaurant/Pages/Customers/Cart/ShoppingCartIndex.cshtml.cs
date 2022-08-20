@@ -34,5 +34,11 @@ namespace Restaurant.Pages.Customers.Cart
                 }
             }
         }
+
+        public IActionResult OnPostPlus(int cartId)
+        {
+            var cart = _uow.ShoppingCartRepository.GetFirstOrDefault(u => u.Id == cartId);
+            _uow.ShoppingCartRepository.Incre
+        }
     }
 }
