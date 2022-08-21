@@ -9,18 +9,29 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Models
 {
-    public class ShoppingCart
+    public class OrderDetails
     {
         public int Id { get; set; }
+
+        [Required]
+        public int OrderId { get; set; }
+
+        [ForeignKey("OrderId")]
+        [ValidateNever]
+        public OrderHeader OrderHeader { get; set; }
+
+        [Required]
         public int MenuItemId { get; set; }
+
         [ForeignKey("MenuItemId")]
         [ValidateNever]
         public MenuItem MenuItem { get; set; }
-        [Range(1, 100, ErrorMessage = "Please type in between 1 and 100")]
+
         public int Count { get; set; }
-        public string UserInfoId { get; set; }
-        [ForeignKey("UserInfoId")]
-        [ValidateNever]
-        public UserInfo UserInfo { get; set; }
+
+        [Required]
+        public double Price { get; set; }
+
+        public string Name { get; set; }
     }
 }

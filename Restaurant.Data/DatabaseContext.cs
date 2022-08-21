@@ -21,5 +21,7 @@ namespace Restaurant.Data
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<UserInfo> UserInfos { get; set; }
         public DbSet<ShoppingCart> ShoppingCarts { get; set; }
+        public DbSet<OrderHeader> OrderHeader { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
     }
 }
