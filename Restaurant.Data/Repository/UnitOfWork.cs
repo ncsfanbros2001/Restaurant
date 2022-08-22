@@ -4,6 +4,7 @@ using Restaurant.Data.MenuItemRepo;
 using Restaurant.Data.OrderDetailsRepo;
 using Restaurant.Data.OrderHeaderRepo;
 using Restaurant.Data.ShoppingCartRepo;
+using Restaurant.Data.UserInfoRepo;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace Restaurant.Data.Repository
             ShoppingCartRepository = new ShoppingCartRepository(_db);
             OrderHeaderRepository = new OrderHeaderRepository(_db);
             OrderDetailsRepository = new OrderDetailsRepository(_db);
+            UserInfoRepository = new UserInfoRepository(_db);
         }
 
         public IMenuItemRepository MenuItemRepository { get; private set; }
@@ -38,6 +40,8 @@ namespace Restaurant.Data.Repository
         public IOrderHeaderRepository OrderHeaderRepository { get; private set; }
 
         public IOrderDetailsRepository OrderDetailsRepository { get; private set; }
+
+        public IUserInfoRepository UserInfoRepository { get; private set; }
 
         public void Dispose()
         {

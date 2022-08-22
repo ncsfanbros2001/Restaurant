@@ -12,6 +12,7 @@ namespace Restaurant.Pages.Customers.Cart
     {
         public IEnumerable<ShoppingCart> ShoppingCartList { get; set; }
         public double CartTotal { get; set; }
+
         private readonly IUnitOfWork _uow;
 
         public ShoppingCartIndexModel(IUnitOfWork uow)

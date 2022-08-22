@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Restaurant.Data.UserInfoRepo;
 
 namespace Restaurant.Data.Repository
 {
@@ -20,6 +21,8 @@ namespace Restaurant.Data.Repository
         IShoppingCartRepository ShoppingCartRepository { get; }
         IOrderHeaderRepository OrderHeaderRepository { get; }
         IOrderDetailsRepository OrderDetailsRepository { get; }
+        IUserInfoRepository UserInfoRepository { get; }
         void Save();
+        void Dispose();
     }
 }
