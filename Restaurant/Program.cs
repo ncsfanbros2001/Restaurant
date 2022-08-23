@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Restaurant.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Restaurant.Utility;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,7 +47,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+
+string key = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
+StripeConfiguration.ApiKey = key;
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

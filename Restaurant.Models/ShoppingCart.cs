@@ -11,14 +11,24 @@ namespace Restaurant.Models
 {
     public class ShoppingCart
     {
+        public ShoppingCart()
+        {
+            Count = 1;
+        }
+
         public int Id { get; set; }
+
         public int MenuItemId { get; set; }
+
         [ForeignKey("MenuItemId")]
         [ValidateNever]
         public MenuItem MenuItem { get; set; }
+
         [Range(1, 100, ErrorMessage = "Please type in between 1 and 100")]
         public int Count { get; set; }
+
         public string UserInfoId { get; set; }
+
         [ForeignKey("UserInfoId")]
         [ValidateNever]
         public UserInfo UserInfo { get; set; }

@@ -40,10 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\images\menuItem\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\js\menuItem.js" />
   </ItemGroup>
 
