@@ -1,0 +1,52 @@
+﻿@page
+@model Restaurant.Pages.Admin.Order.AllOrderListModel
+
+@if(TempData["success"] != null)
+{
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script type="text/javascript">
+        toastr.success('@TempData["success"]');
+    </script>
+}
+
+<div class="container p-3">
+    <div class="row">
+        <div class="col-6">
+            <h1>Menu Items</h1>
+        </div>
+    </div>
+
+    <br />
+    <br />
+
+    <table id="OL_load" class="table table-bordered table-striped" style="width: 100%">
+        <thead>
+            <tr>
+                <th>
+                    Order ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Order Total
+                </th>
+                <th>
+                    Pickup Time
+                </th>
+                <th>
+                    Manipulate Data
+                </th>
+            </tr>
+        </thead>
+        
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/orderList.js"></script>
+}
