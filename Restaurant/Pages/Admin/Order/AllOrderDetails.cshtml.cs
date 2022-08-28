@@ -10,7 +10,7 @@ namespace Restaurant.Pages.Admin.Order
     {
         private readonly IUnitOfWork _uow;
 
-        public OrderDeltailsVM OrderDeltailsVM { get; set; }
+        public OrderDetailsVM OrderDeltailsVM { get; set; }
 
         public AllOrderDetailsModel(IUnitOfWork uow)
         {
@@ -21,7 +21,8 @@ namespace Restaurant.Pages.Admin.Order
         {
             OrderDeltailsVM = new()
             {
-                OrderHeader = _uow.OrderHeaderRepository.GetFirstOrDefault(u => u.Id == id, includeProperties: "UserInfo"),
+                OrderHeader = _uow.OrderHeaderRepository
+                .GetFirstOrDefault(u => u.Id == id, includeProperties: "UserInfo"),
                 OrderDetails = _uow.OrderDetailsRepository.GetAll(u => u.OrderId == id).ToList()
             };
         }

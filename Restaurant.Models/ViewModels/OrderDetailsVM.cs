@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Restaurant.Models.ViewModels
 {
-    public class OrderDeltailsVM
+    public class OrderDetailsVM
     {
         public OrderHeader OrderHeader { get; set; }
         public List<OrderDetails> OrderDetails { get; set; }

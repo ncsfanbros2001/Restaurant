@@ -21,5 +21,14 @@ namespace Restaurant.Data.OrderHeaderRepo
         {
             _db.OrderHeader.Update(orderHeader);
         }
+
+        public void UpdateStatus(int id, string status)
+        {
+            var orderFromDB = _db.OrderHeader.FirstOrDefault(u => u.Id == id);
+            if(orderFromDB != null)
+            {
+                orderFromDB.Status = status;
+            }
+        }
     }
 }

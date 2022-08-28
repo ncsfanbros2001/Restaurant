@@ -92,7 +92,7 @@ namespace Restaurant.Pages.Customers.Cart
                         "card"
                     },
                     Mode = "payment",
-                    SuccessUrl = domain + $"/Customers/Cart/OrderConfirmation?id={OrderHeader.Id}",
+                    SuccessUrl = domain + $"Customers/Cart/OrderConfirmation?id={OrderHeader.Id}",
                     CancelUrl = domain + "Customers/Cart/ShoppingCartIndex",
                 };
 
