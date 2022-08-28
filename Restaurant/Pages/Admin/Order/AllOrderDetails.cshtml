@@ -1,4 +1,5 @@
 ﻿@page
+@using Restaurant.Utility
 @model Restaurant.Pages.Admin.Order.AllOrderDetailsModel
 
 <form method="post">
@@ -69,7 +70,8 @@
             </div>
 
             <div class="col-lg-4 col-12">
-                <h4 class="d-flex justify-content-between align-content-center mb-3">
+                <button type="submit" disabled class="btn btn-outline-info form-control">@Model.OrderDeltailsVM.OrderHeader.Status</button>
+                <h4 class="d-flex justify-content-between align-content-center mb-3 pt-3">
                     <span class="text-muted">Order ID: </span>
                     <span class="badge badge-secondary badge-pill">@Model.OrderDeltailsVM.OrderHeader.Id</span>
                 </h4>
@@ -93,13 +95,33 @@
 
                 </ul>
 
-                <button type="submit" disabled class="btn btn-info form-control">ORDER STATUS</button>
                 <div class="row pt-3">
+                    @if (Model.OrderDeltailsVM.OrderHeader.Status == StaticDetail.StatusReady 
+                    && (User.IsInRole(StaticDetail.ManagerRole) || User.IsInRole(StaticDetail.FrontDeskRole)))
+                    {
+                        <div class="col-12 pb-2">
+                            <button type="submit" class="btn btn-primary form-control" 
+                            asp-page-handler="OrderCompleted" asp-route-orderId="@Model.OrderDeltailsVM.OrderHeader.Id">
+                                Complete Order
+                            </button>
+                        </div>
+                    }
+                    @if ((Model.OrderDeltailsVM.OrderHeader.Status == StaticDetail.StatusReady 
+                    || Model.OrderDeltailsVM.OrderHeader.Status == StaticDetail.StatusSubmitted 
+                    || Model.OrderDeltailsVM.OrderHeader.Status == StaticDetail.StatusInProcess)
+                    && (User.IsInRole(StaticDetail.ManagerRole) || User.IsInRole(StaticDetail.FrontDeskRole))) {
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-warning form-control"
+                            asp-page-handler="OrderCancel" asp-route-orderId="@Model.OrderDeltailsVM.OrderHeader.Id">
+                                <i class="bi bi-x-square"></i> Cancel Order
+                            </button>
+                        </div>
+                    }
                     <div class="col-6">
-                        <button type="submit" class="btn btn-warning form-control"><i class="bi bi-x-square"></i> Cancel Order</button>
-                    </div>
-                    <div class="col-6">
-                        <button type="submit" class="btn btn-danger form-control"><i class="bi bi-currency-dollar"></i> Refund Order</button>
+                        <button type="submit" class="btn btn-danger form-control"
+                        asp-page-handler="OrderRefund" asp-route-orderId="@Model.OrderDeltailsVM.OrderHeader.Id">
+                            <i class="bi bi-currency-dollar"></i> Refund Order
+                        </button>
                     </div>
                 </div>
             </div>

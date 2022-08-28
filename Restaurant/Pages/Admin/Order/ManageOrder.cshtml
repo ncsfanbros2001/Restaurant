@@ -41,13 +41,13 @@
                             @if (item.OrderHeader.Status == StaticDetail.StatusInProcess)
                             {
                                 <button type="submit" class="btn btn-success form-control mb-3" 
-                                asp-page-handler="OrderOrderReady" asp-route-orderId="@item.OrderHeader.Id">
+                                asp-page-handler="OrderReady" asp-route-orderId="@item.OrderHeader.Id">
                                     <i class="bi bi-emoji-laughing"></i> &nbsp; Order Ready
                                 </button>
                             }
 
                             <button type="submit" class="btn btn-warning form-control mb-3" 
-                            asp-page-handler="OrderOrderCancel" asp-route-orderId="@item.OrderHeader.Id">
+                            asp-page-handler="OrderCancel" asp-route-orderId="@item.OrderHeader.Id">
                                 <i class="bi bi-x-square-fill"></i> &nbsp; Cancel Order
                             </button>
                            

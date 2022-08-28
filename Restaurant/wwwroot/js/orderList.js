@@ -17,7 +17,7 @@ $(document).ready(function () {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="w-75 btn-group">
-                                <a href="/Admin/Order/OrderDetails?id=${data}" 
+                                <a href="/Admin/Order/AllOrderDetails?id=${data}" 
                                     class="btn btn-success text-white mx-2"> 
                                 <i class="bi bi-pencil-square"></i> </a>
                             </div>`
