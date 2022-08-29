@@ -97,7 +97,8 @@
 
                 <div class="row pt-3">
                     @if (Model.OrderDeltailsVM.OrderHeader.Status == StaticDetail.StatusReady 
-                    && (User.IsInRole(StaticDetail.ManagerRole) || User.IsInRole(StaticDetail.FrontDeskRole)))
+                    && (User.IsInRole(StaticDetail.ManagerRole) || User.IsInRole(StaticDetail.FrontDeskRole)
+                    || User.IsInRole(StaticDetail.KitchenRole)))
                     {
                         <div class="col-12 pb-2">
                             <button type="submit" class="btn btn-primary form-control" 
@@ -109,7 +110,8 @@
                     @if ((Model.OrderDeltailsVM.OrderHeader.Status == StaticDetail.StatusReady 
                     || Model.OrderDeltailsVM.OrderHeader.Status == StaticDetail.StatusSubmitted 
                     || Model.OrderDeltailsVM.OrderHeader.Status == StaticDetail.StatusInProcess)
-                    && (User.IsInRole(StaticDetail.ManagerRole) || User.IsInRole(StaticDetail.FrontDeskRole))) {
+                    && (User.IsInRole(StaticDetail.ManagerRole) || User.IsInRole(StaticDetail.FrontDeskRole)
+                    || User.IsInRole(StaticDetail.KitchenRole))) {
                         <div class="col-6">
                             <button type="submit" class="btn btn-warning form-control"
                             asp-page-handler="OrderCancel" asp-route-orderId="@Model.OrderDeltailsVM.OrderHeader.Id">
