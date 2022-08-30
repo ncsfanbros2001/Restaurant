@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Restaurant.Data.Repository;
 using Restaurant.Models;
+using Restaurant.Utility;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
 
@@ -46,6 +47,8 @@ namespace Restaurant.Pages.Customers.HomePage
                 {
                     _uow.ShoppingCartRepository.Add(ShoppingCart);
                     _uow.Save();
+                    HttpContext.Session.SetInt32(StaticDetail.SessionCart, 
+                        _uow.ShoppingCartRepository.GetAll(u => u.UserInfoId == ShoppingCart.UserInfoId).ToList().Count);
                 }
                 else
                 {
