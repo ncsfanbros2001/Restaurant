@@ -8,6 +8,7 @@ using Restaurant.Areas.Identity.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Restaurant.Utility;
 using Stripe;
+using Restaurant.Data.DatabaseInitializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +26,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
 
 builder.Services.ConfigureApplicationCookie(options =>
 {
@@ -62,7 +65,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+SeedDatabase();
 string key = builder.Configuration.GetSection("Stripe:SecretKey").Get<string>();
 StripeConfiguration.ApiKey = key;
 
@@ -75,3 +78,12 @@ app.UseSession();
 app.MapRazorPages();
 app.MapControllers();
 app.Run();
+
+void SeedDatabase()
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbInit = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+        dbInit.Initialize();
+    }
+}

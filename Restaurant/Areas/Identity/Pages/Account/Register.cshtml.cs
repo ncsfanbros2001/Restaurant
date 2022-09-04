@@ -132,13 +132,7 @@ namespace Restaurant.Areas.Identity.Pages.Account
                 user.PhoneNumber = Input.PhoneNumber;
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                if (!await _roleManager.RoleExistsAsync(StaticDetail.KitchenRole))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole(StaticDetail.KitchenRole));
-                    await _roleManager.CreateAsync(new IdentityRole(StaticDetail.ManagerRole));
-                    await _roleManager.CreateAsync(new IdentityRole(StaticDetail.FrontDeskRole));
-                    await _roleManager.CreateAsync(new IdentityRole(StaticDetail.CustomerRole));
-                }
+                
                 if (result.Succeeded)
                 {
                     string role = Request.Form["rdUserRole"].ToString();
@@ -184,6 +178,11 @@ namespace Restaurant.Areas.Identity.Pages.Account
                     }
                     else
                     {
+                        if(User.IsInRole(StaticDetail.ManagerRole))
+                        {
+                            TempData["success"] = "Employee created successfully";
+                            return RedirectToPage("/Customers/HomePage/HomeIndex");
+                        }
                         await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
