@@ -24,7 +24,7 @@ namespace Restaurant.Models
         [ValidateNever]
         public MenuItem MenuItem { get; set; }
 
-        [Range(1, 100, ErrorMessage = "Please type in between 1 and 100")]
+        [Range(1, 100, ErrorMessage = "You can only buy 100 of this")]
         public int Count { get; set; }
 
         public string UserInfoId { get; set; }
